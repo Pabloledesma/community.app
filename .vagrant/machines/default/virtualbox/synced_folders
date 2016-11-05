@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/community-app":{"type":null,"mount_options":[],"guestpath":"/home/vagrant/community-app","hostpath":"D:/Proyectos/community.app","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"D:/Proyectos/community.app","disabled":false,"__vagrantfile":true}}}
