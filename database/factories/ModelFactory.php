@@ -22,3 +22,15 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\CommunityLink::class, function (Faker\Generator $faker) {
+    static $password;
+
+    return [
+        'user_id' => factory(App\User::class)->create()->id,
+       	'channel_id' => 1,
+       	'title' => $faker->sentence,
+       	'link' => $faker->url,
+       	'approved' => 0
+    ];
+});
