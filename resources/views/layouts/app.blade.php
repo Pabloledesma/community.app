@@ -78,10 +78,19 @@
             </div>
         </nav>
 
-        @yield('content')
+        <div class="container">
+            @include('flash::message')
+            @yield('content')
+        </div>
+
+        
     </div>
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script>
+        $('div.arlert').not('.alert-important').delay(3000).fadeOut(350);
+        $('#flash-overlay-modal').modal();
+    </script>
 </body>
 </html>

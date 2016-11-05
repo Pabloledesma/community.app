@@ -1,35 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8">
-				<h1>Community</h1>
-				<ul class="Links">
-					@if(count($links))
-						@foreach ($links as $link)
-							<li class="Links__link">
-								<span class="label label-default" style="background: {{ $link->channel->color }}">{{ $link->channel->title }}</span>
+	
+	<div class="row">
+		<div class="col-md-8">
+			<h3>Community</h3>
 
-								<a href="{{ $link->link }}" target="_blank">
-									{{ $link->title }}
-								</a>
+			<ul class="list-group">
+				@if(count($links))
+					@foreach ($links as $link)
+						<li class="list-group-item">
+							<span class="label label-default" style="background: {{ $link->channel->color }}">{{ $link->channel->title }}</span>
 
-								<small>
-									Contributed By <a href="#">{{ $link->creator->name }}</a> 
-									{{ $link->updated_at->diffForHumans() }}
-								</small>
-							</li>
-						@endforeach
-					@else
-						<li class="Links__link">No contributions yet</li>
-					@endif
-				</ul>
-			</div>
-			@include('community.add-link')
+							<a href="{{ $link->link }}" target="_blank">
+								{{ $link->title }}
+							</a>
+
+							<small>
+								Contributed By <a href="#">{{ $link->creator->name }}</a> 
+								{{ $link->updated_at->diffForHumans() }}
+							</small>
+						</li>
+					@endforeach
+				@else
+					<li class="Links__link">No contributions yet</li>
+				@endif
+			</ul>
 		</div>
+		@include('community.add-link')
+	</div>
 
 		
-	</div>
+
 
 @stop
