@@ -5,30 +5,33 @@ namespace App\Http\Controllers;
 use App\Exceptions\CommunityLinkAlreadySubmitted;
 use App\CommunityLink;
 use App\Channel;
+use App\Http\Requests\CommunityLinkForm;
 use Illuminate\Http\Request;
 
 class CommunityLinksController extends Controller
 {
-    public function index()
+    /**
+    * Show all community links
+    *
+    * @param Channel $channel
+    * @return \Illuminate\view\view
+    */
+    public function index(Channel $channel = null)
     {
-		$links = CommunityLink::where('approved', 1)->latest('updated_at')->paginate(25);
+        $links = CommunityLink::forChannel($channel)
+            ->where('approved', 1)
+            ->latest('updated_at')
+            ->paginate(3);
         $channels = Channel::orderBy('title', 'asc')->get();
 
-    	return view('community.index', compact('links', 'channels'));
+    	return view('community.index', compact('links', 'channels', 'channel'));
     }
 
-    public function store(Request $request)
+    public function store(CommunityLinkForm $form)
     {
-    	$this->validate($request, [
-            'channel_id'    => 'required|exists:channels,id',
-            'title'         => 'required',
-            'link'          => 'required'
-        ]);
 
         try {
-            CommunityLink::from(
-                auth()->user()
-            )->contribute($request->all());
+            $form->persist();
 
             if(auth()->user()->isTrusted()){
                 flash('Thanks for the contribution', 'success');
